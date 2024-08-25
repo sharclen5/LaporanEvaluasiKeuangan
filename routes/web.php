@@ -18,6 +18,10 @@ Route::get('/belanjapegawai', function () {
     return view('belanjapegawai', ['title' => 'Belanja Pegawai']);
 });
 
+Route::get('/belanjanonpegawai', function () {
+    return view('belanjanonpegawai', ['title' => 'Belanja Non Pegawai']);
+});
+
 Route::get('/pembiayaan', function () {
     return view('pembiayaan', ['title' => 'Pembiayaan']);
 });

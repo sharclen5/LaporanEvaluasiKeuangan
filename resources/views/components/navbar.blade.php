@@ -47,49 +47,13 @@
                                     </li>
                                 </div>
                                 
-                                <div id="pndptntf">
-                                    <button id="pendapatantransferDropdownButton" data-dropdown-toggle="pendapatantransferDropdown" data-dropdown-delay="500" data-dropdown-placement="right-start" data-dropdown-trigger="hover" type="button" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Transfer
-                                    <svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                    </svg>
-                                    </button>
-                                    <div id="pendapatantransferDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="pendapatantransferDropdownButton">
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Peralatan dan Mesin</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Gedung dan Bangunan</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Modal Jalan, Jaringan, dan Irigasi</a>
-                                            </li>
-                                            </ul>
-                                    </div>
-                                    </li>
-                                </div>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Transfer</a>
+                                </li>
 
-                                <div id="pndptnlainlain">
-                                    <button id="lainlainpendapatanDropdownButton" data-dropdown-toggle="lainlainpendapatanDropdown" data-dropdown-delay="500" data-dropdown-placement="right-start" data-dropdown-trigger="hover" type="button" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lain-lain Pendapatan Daerah yang Sah
-                                    <svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                    </svg>
-                                    </button>
-                                    <div id="lainlainpendapatanDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="lainlainpendapatanDropdownButton">
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Peralatan dan Mesin</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Gedung dan Bangunan</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Modal Jalan, Jaringan, dan Irigasi</a>
-                                            </li>
-                                            </ul>
-                                    </div>
-                                    </li>
-                                </div>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lain-lain Pendapatan Daerah yang Sah</a>
+                                </li>
 
                                 </ul>
                             </div>
@@ -114,7 +78,7 @@
                                     <div id="belanjaoperasiDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="belanjaoperasiDropdownButton">
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Pegawai</a>
+                                                <a href="/belanjapegawai" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Pegawai</a>
                                             </li>
                                             <li>
                                                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Barang dan Jasa</a>
@@ -142,13 +106,22 @@
                                     <div id="belanjamodalDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="belanjamodalDropdownButton">
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Peralatan dan Mesin</a>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Tanah</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Gedung dan Bangunan</a>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Peralatan dan Mesin</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Modal Jalan, Jaringan, dan Irigasi</a>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Gedung dan Bangunan</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Jalan, Irigasi, dan Jaringan</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Aset Tetap Lainnya</a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Aset Lainnya</a>
                                             </li>
                                             </ul>
                                     </div>
