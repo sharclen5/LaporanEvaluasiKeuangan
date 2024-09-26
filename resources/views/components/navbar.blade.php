@@ -22,22 +22,24 @@
                             <div id="pendapatan" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="pendapatanButton">
                                 <div id="pndptnasli">
+                                    <a href="/pendapatan/pendapatanaslidaerah">
                                     <button id="pendapatanasliDropdownButton" data-dropdown-toggle="pendapatanasliDropdown" data-dropdown-delay="500" data-dropdown-placement="right-start" data-dropdown-trigger="hover" type="button" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Asli Daerah
                                     <svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                                     </svg>
                                     </button>
+                                    </a>
 
                                     <div id="pendapatanasliDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="pendapatanasliDropdownButton">
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Pajak Daerah</a>
+                                                <a href="/pendapatan/pendapatanaslidaerah/pajakdaerah" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Pajak Daerah</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Retribusi Daerah</a>
+                                                <a href="/pendapatan/pendapatanaslidaerah/retribusidaerah" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Retribusi Daerah</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan</a>
+                                                <a href="/pendapatan/pendapatanaslidaerah/phpkdd" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan</a>
                                             </li>
                                             <li>
                                                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lain-lain PAD yang Sah</a>
@@ -69,28 +71,30 @@
                             <div id="belanja" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="belanjaButton">
                                 <div id="blnjoprs">
+                                    <a href="/belanja/belanjaoperasi">
                                     <button id="belanjaoperasiDropdownButton" data-dropdown-toggle="belanjaoperasiDropdown" data-dropdown-delay="500" data-dropdown-placement="right-start" data-dropdown-trigger="hover" type="button" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Operasi
                                     <svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                                     </svg>
                                     </button>
+                                    </a>
 
                                     <div id="belanjaoperasiDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="belanjaoperasiDropdownButton">
                                             <li>
-                                                <a href="/belanjapegawai" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Pegawai</a>
+                                                <a href="/belanja/belanjaoperasi/belanjapegawai" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Pegawai</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Barang dan Jasa</a>
+                                                <a href="/belanja/belanjaoperasi/belanjabarangjasa" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Barang dan Jasa</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Bunga</a>
+                                                <a href="/belanja/belanjaoperasi/belanjabunga" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Bunga</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Hibah</a>
+                                                <a href="/belanja/belanjaoperasi/belanjahibah" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Hibah</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Bantuan Sosial</a>
+                                                <a href="/belanja/belanjaoperasi/belanjabansos" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Bantuan Sosial</a>
                                             </li>
                                             </ul>
                                     </div>
@@ -98,30 +102,34 @@
                                 </div>
                                 
                                 <div id="blnjmdl">
+
+                                    <a href="/belanja/belanjamodal">
                                     <button id="belanjamodalDropdownButton" data-dropdown-toggle="belanjamodalDropdown" data-dropdown-delay="500" data-dropdown-placement="right-start" data-dropdown-trigger="hover" type="button" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal
                                     <svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                                     </svg>
                                     </button>
+                                    </a>
+                                    
                                     <div id="belanjamodalDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="belanjamodalDropdownButton">
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Tanah</a>
+                                                <a href="/belanja/belanjamodal/tanah" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Tanah</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Peralatan dan Mesin</a>
+                                                <a href="/belanja/belanjamodal/peralatanmesin" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Peralatan dan Mesin</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Gedung dan Bangunan</a>
+                                                <a href="/belanja/belanjamodal/gedungbangunan" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Gedung dan Bangunan</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Jalan, Irigasi, dan Jaringan</a>
+                                                <a href="/belanja/belanjamodal/jalanirigasijaringan" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Jalan, Irigasi, dan Jaringan</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Aset Tetap Lainnya</a>
+                                                <a href="/belanja/belanjamodal/asettetaplainnya" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Aset Tetap Lainnya</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Aset Lainnya</a>
+                                                <a href="/belanja/belanjamodal/asetlainnya" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Modal Aset Lainnya</a>
                                             </li>
                                             </ul>
                                     </div>
@@ -129,11 +137,11 @@
                                 </div>
 
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Tak Terduga</a>
+                                    <a href="/belanja/belanjatakterduga" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Tak Terduga</a>
                                 </li>
 
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Transfer</a>
+                                    <a href="/belanja/belanjatransfer" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Belanja Transfer</a>
                                 </li>
 
                                 </ul>
@@ -141,7 +149,7 @@
                         </div>
 
                         <div id="pmbyn">
-                            <x-nav-link href="/pembiayaan" :active="request()->is('pembiayaan')">
+                            <x-nav-link href="#">
                             <button id="pembiayaanButton" data-dropdown-toggle="pembiayaan" data-dropdown-delay="500" data-dropdown-trigger="hover" type="button">Pembiayaan
                             </button>
                             </x-nav-link>
@@ -150,22 +158,18 @@
                             <div id="pembiayaan" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="pembiayaanButton">
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                                    <a href="/pembiayaan/penerimaan" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Penerimaan Pembiayaan Daerah</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                                    <a href="/pembiayaan/pengeluaran" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pengeluaran Pembiayaan Daerah</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                                    <a href="/pembiayaan/silpa" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">SILPA</a>
                                 </li>
                                 </ul>
                             </div>
                         </div>
                         
-                        <x-nav-link href="/informasi" :active="request()->is('informasi')">Informasi Lainnya</x-nav-link>
                     </div>
                 </div>
             </div>

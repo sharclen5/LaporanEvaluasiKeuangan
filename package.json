@@ -14,6 +14,8 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "apexcharts": "^3.53.0",
+        "datamaps": "^0.5.9",
         "flowbite": "^2.4.1"
     }
 }
