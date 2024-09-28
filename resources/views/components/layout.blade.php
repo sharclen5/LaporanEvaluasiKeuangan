@@ -13,12 +13,22 @@
 <body class="h-full">
 
     <div class="min-h-full">
-        <x-navbar></x-navbar>
-        <x-header>{{ $title }}</x-header>
+        @if (!request()->routeIs('index', 'home'))
+            <x-navbar></x-navbar>
+            @else 
+            <x-navbarhome></x-navbarhome>
+        @endif
+
+        @if (!request()->routeIs('index', 'home'))
+            <x-header>{{ $title }}</x-header>
+            @else 
+            <x-header />
+        @endif
+        
 
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            {{ $slot }}
+                {{ $slot }}
             </div>
         </main>
 

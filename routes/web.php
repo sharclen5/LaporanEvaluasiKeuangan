@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FinancialDataController;
 
-Route::get('/', function () {
-    return view('home', ['title' => 'Home']);
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/{province}/dashboard', [FinancialDataController::class, 'showDashboard']);
 
 Route::get('/pendapatan', function () {
     return view('pendapatan', ['title' => 'Pendapatan']);
@@ -100,6 +102,10 @@ Route::get('/belanja/belanjatakterduga', function () {
 
 Route::get('/belanja/belanjatransfer', function () {
     return view('belanja.belanjatransfer', ['title' => 'Belanja Transfer']);
+});
+
+Route::get('/pembiayaan', function () {
+    return view('pembiayaan', ['title' => 'Pembiayaan Daerah']);
 });
 
 Route::get('/pembiayaan/penerimaan', function () {
