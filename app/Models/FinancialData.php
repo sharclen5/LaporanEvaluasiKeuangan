@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FinancialData extends Model
 {
     use HasFactory;
+    protected $fillable = ['province_id', 'categories_id', 'year', 'budget', 'realization'];
     
+
 }
 

@@ -52,30 +52,65 @@ class FinancialDataController extends Controller
 
 
     public function showPendapatan($province)
-    {
-        // Set the title dynamically based on the province
-        $title = 'Pendapatan Provinsi ' .$province;
-        $subTitle = 'Pendapatan';
+{
+    $title = 'Pendapatan Provinsi ' . $province;
+    $subTitle = 'Pendapatan';
 
-        $idProvince = Province::where('name', $province)->first()->id;
-
-        // tinggal ngambil data yang perlu ditampilin ke tabel terus return
-        $datas = FinancialData::where('province_id', $idProvince)->where('categories_id', 1)->get();
-
-        // Calculate average percentage change
-        $averagePercentageChange = $this->calculateAverageRealization($idProvince, 1);
-
-        // dd($datas);
-
-        // Return the view with the title and province data
-        return view('pendapatan', [
-            'title' => $title,
-            'province' => $province,
-            'datas' => $datas,
-            'subTitle' => $subTitle,
-            'averagePercentageChange' => $averagePercentageChange,
-        ]);
+    $provinceModel = Province::where('name', $province)->first();
+    if (!$provinceModel) {
+        return redirect()->back()->with('error', 'Province not found.');
     }
+
+    $provinceId = $provinceModel->id;
+    $datas = FinancialData::where('province_id', $provinceId)->where('categories_id', 1)->get();
+    $averagePercentageChange = $this->calculateAverageRealization($provinceId, 1);
+
+    // Get distinct years from the FinancialData table
+    $years = FinancialData::where('province_id', $provinceId)->distinct()->orderBy('year')->pluck('year');
+
+    return view('pendapatan', [
+        'title' => $title,
+        'province' => $province,
+        'datas' => $datas,
+        'subTitle' => $subTitle,
+        'averagePercentageChange' => $averagePercentageChange,
+        'years' => $years, // Pass years to the view
+    ]);
+}
+
+
+public function createFinancialData(Request $request, $province)
+{
+    $request->validate([
+        'year' => 'required|integer',
+        'budget' => 'required|numeric',
+        'realization' => 'required|numeric',
+        'categories_id' => 'required|integer',
+    ]);
+
+    $provinceModel = Province::where('name', $province)->first();
+    if (!$provinceModel) {
+        return redirect()->back()->with('error', 'Province not found.');
+    }
+
+    $categoriesId = $request->input('categories_id');
+
+    $financialData = new FinancialData();
+    $financialData->province_id = $provinceModel->id;
+    $financialData->categories_id = $categoriesId;
+    $financialData->year = $request->input('year');
+    $financialData->budget = $request->input('budget');
+    $financialData->realization = $request->input('realization');
+
+    if ($financialData->save()) {
+        return redirect()->back()->with('success', 'Data added successfully.');
+    } else {
+        return redirect()->back()->with('error', 'Failed to add data.');
+    }
+}
+
+
+
 
     public function updateFinancialData(Request $request, $province)
 {

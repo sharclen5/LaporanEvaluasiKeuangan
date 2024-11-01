@@ -10,6 +10,8 @@ Route::get('/{province}/dashboard', [FinancialDataController::class, 'showDashbo
 
 Route::get('/{province}/pendapatan', [FinancialDataController::class, 'showPendapatan']);
 
+Route::post('/{province}/pendapatan/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatan.create');
+
 Route::post('/{province}/pendapatan/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
 
 Route::get('/pendapatan/pendapatanaslidaerah', function () {
