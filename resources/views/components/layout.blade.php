@@ -1,3 +1,5 @@
+@props(['province'])
+
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-100">
 
@@ -14,8 +16,8 @@
 
     <div class="min-h-full">
         @if (!request()->routeIs('index', 'home'))
-            <x-navbar></x-navbar>
-            @else 
+            <x-navbar :province="$province"></x-navbar>
+        @else 
             <x-navbarhome></x-navbarhome>
         @endif
 

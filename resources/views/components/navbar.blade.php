@@ -1,3 +1,5 @@
+@props(['province'])
+
 <nav class="bg-gray-800" x-data="{ isOpen: false }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
@@ -10,12 +12,13 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <!-- Current: "bg-gray-900 text-white",
-                            Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <x-nav-link href="/dashboard" :active="request()->is('dashboard')">Dashboard</x-nav-link>
+                            <x-nav-link href="{{ url('/' . $province . '/dashboard') }}" :active="request()->is('dashboard')">
+                                <button id="dashboardButton" type="button">Dashboard
+                                </button>
+                            </x-nav-link>
 
                         <div id="pndptn">
-                            <x-nav-link href="/pendapatan" :active="request()->is('pendapatan')">
+                            <x-nav-link href="{{ url('/' . $province . '/pendapatan') }}" :active="request()->is('pendapatan')">
                             <button id="pendapatanButton" data-dropdown-toggle="pendapatan" data-dropdown-delay="500" data-dropdown-trigger="hover" type="button">Pendapatan
                             </button>
                             </x-nav-link>
@@ -64,7 +67,7 @@
                         </div>
 
                         <div id="blnj">
-                            <x-nav-link href="/belanja" :active="request()->is('belanja')">
+                            <x-nav-link href="{{ url('/' . $province . '/belanja') }}" :active="request()->is('belanja')">
                             <button id="belanjaButton" data-dropdown-toggle="belanja" data-dropdown-delay="500" data-dropdown-trigger="hover" type="button">Belanja
                             </button>
                             </x-nav-link>

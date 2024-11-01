@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('financial_data', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('province_id');
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('categories_id');
             $table->year('year');
             $table->decimal('budget', 20, 2);
             $table->decimal('realization', 20, 2);
@@ -25,7 +25,7 @@ return new class extends Migration
                   ->on('provinces')
                   ->onDelete('cascade');
 
-            $table->foreign('category_id')
+            $table->foreign('categories_id')
                   ->references('id')
                   ->on('categories')
                   ->onDelete('cascade');

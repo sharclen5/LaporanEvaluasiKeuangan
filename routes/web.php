@@ -6,11 +6,11 @@ use App\Http\Controllers\FinancialDataController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/{province}/dashboard', [FinancialDataController::class, 'showDashboard']);
+Route::get('/{province}/dashboard', [FinancialDataController::class, 'showDashboard'])->name('dashboard');
 
-Route::get('/pendapatan', function () {
-    return view('pendapatan', ['title' => 'Pendapatan']);
-});
+Route::get('/{province}/pendapatan', [FinancialDataController::class, 'showPendapatan']);
+
+Route::post('/{province}/pendapatan/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
 
 Route::get('/pendapatan/pendapatanaslidaerah', function () {
     return view('pendapatan.pendapatanaslidaerah', ['title' => 'Pendapatan Asli Daerah']);
@@ -40,9 +40,7 @@ Route::get('/pendapatan/pendapatanalainlain', function () {
     return view('pendapatan.pendapatanalainlain', ['title' => 'Lain-lain Pendapatan Daerah yang Sah']);
 });
 
-Route::get('/belanja', function () {
-    return view('belanja', ['title' => 'Belanja']);
-});
+Route::get('/{province}/belanja', [FinancialDataController::class, 'showBelanja']);
 
 Route::get('/belanja/belanjaoperasi', function () {
     return view('belanja.belanjaoperasi', ['title' => 'Belanja Operasi']);

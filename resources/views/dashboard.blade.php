@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :province="$province">
     <x-slot:title>{{ $title }}</x-slot:title>
     
     

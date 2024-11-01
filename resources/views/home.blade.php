@@ -23,4 +23,6 @@
         {{ $provinces->links() }} <!-- Pagination links -->
     </div>
 
+    
+
 </x-layout>
