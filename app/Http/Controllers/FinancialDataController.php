@@ -74,7 +74,7 @@ class FinancialDataController extends Controller
         'datas' => $datas,
         'subTitle' => $subTitle,
         'averagePercentageChange' => $averagePercentageChange,
-        'years' => $years, // Pass years to the view
+        'years' => $years,
     ]);
 }
 

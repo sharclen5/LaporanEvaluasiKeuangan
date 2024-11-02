@@ -23,9 +23,10 @@
     </x-slot:title>
 
     @php
-        $current = $datas->last();
-        $previous = $datas[count($datas) - 2];
-        $earliest = $datas[count($datas) - 5];
+        $sortedDatas = $datas->sortByDesc('year')->take(5)->sortBy('year');
+        $current = $sortedDatas->first();
+        $previous = $sortedDatas[1];
+        $earliest = $sortedDatas->last();
         $currentPercentage = number_format($current->percentage, 2, ',', '.');
         $targetComparison = $current->realization <=> $current->budget;
         $budgetComparison = ($current->budget - $previous->realization) / $previous->realization * 100;
@@ -53,7 +54,7 @@
                     </tr>
                 </thead>
                 <tbody style="font-family: 'Bookman Old Style'; font-size: 12pt;">
-                    @foreach ($datas as $data)
+                    @foreach ($sortedDatas as $data)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="px-6 py-4 border-r">{{ $data->year }}</td>
                             <td class="px-6 py-4 border-r">{{ number_format($data->budget, 2, ',', '.') }}</td>
@@ -182,6 +183,7 @@
                         <label for="realization" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Realisasi</label>
                         <input type="text" name="realization" id="realization" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" pattern="^\d+(\,\d{1,2})?$" required>
                     </div>
+                    <input type="hidden" name="categories_id" value="1">
                 </div>
                 <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Confirm
