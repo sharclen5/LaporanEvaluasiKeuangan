@@ -19,7 +19,7 @@
         @endforeach
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 px-2 flex justify-center">
         {{ $provinces->links() }} <!-- Pagination links -->
     </div>
 

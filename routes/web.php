@@ -6,6 +6,8 @@ use App\Http\Controllers\FinancialDataController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/get-data-by-year', [FinancialDataController::class, 'getDataByYear'])->name('getDataByYear');
+
 Route::get('/{province}/dashboard', [FinancialDataController::class, 'showDashboard'])->name('dashboard');
 
 Route::get('/{province}/pendapatan', [FinancialDataController::class, 'showPendapatan']);
@@ -14,108 +16,52 @@ Route::post('/{province}/pendapatan/create', [FinancialDataController::class, 'c
 
 Route::post('/{province}/pendapatan/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
 
-Route::get('/pendapatan/pendapatanaslidaerah', function () {
-    return view('pendapatan.pendapatanaslidaerah', ['title' => 'Pendapatan Asli Daerah']);
-});
-
-Route::get('/pendapatan/pendapatanaslidaerah/pajakdaerah', function () {
-    return view('pendapatan.pendapatanaslidaerah.pajakdaerah', ['title' => 'Pendapatan Pajak Daerah']);
-});
-
-Route::get('/pendapatan/pendapatanaslidaerah/retribusidaerah', function () {
-    return view('pendapatan.pendapatanaslidaerah.retribusidaerah', ['title' => 'Pendapatan Retribusi Daerah']);
-});
-
-Route::get('/pendapatan/pendapatanaslidaerah/phpkdd', function () {
-    return view('pendapatan.pendapatanaslidaerah.phpkdd', ['title' => 'Pendapatan Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan']);
-});
-
-Route::get('/pendapatan/pendapatanaslidaerah/lainlain', function () {
-    return view('pendapatan.pendapatanaslidaerah.lainlain', ['title' => 'Lain-lain PAD yang Sah']);
-});
-
-Route::get('/pendapatan/pendapatantransfer', function () {
-    return view('pendapatan.pendapatantransfer', ['title' => 'Pendapatan Transfer']);
-});
-
-Route::get('/pendapatan/pendapatanalainlain', function () {
-    return view('pendapatan.pendapatanalainlain', ['title' => 'Lain-lain Pendapatan Daerah yang Sah']);
-});
+Route::post('/{province}/pendapatan/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatan.delete');
 
 Route::get('/{province}/belanja', [FinancialDataController::class, 'showBelanja']);
 
-Route::get('/belanja/belanjaoperasi', function () {
-    return view('belanja.belanjaoperasi', ['title' => 'Belanja Operasi']);
-});
+Route::post('/{province}/belanja/create', [FinancialDataController::class, 'createFinancialData'])->name('belanja.create');
 
-Route::get('/belanja/belanjaoperasi/belanjapegawai', function () {
-    return view('belanja.belanjaoperasi.belanjapegawai', ['title' => 'Belanja Pegawai']);
-});
+Route::post('/{province}/belanja/update', [FinancialDataController::class, 'updateFinancialData'])->name('Belanja.update');
 
-Route::get('/belanja/belanjaoperasi/belanjabarangjasa', function () {
-    return view('belanja.belanjaoperasi.belanjabarangjasa', ['title' => 'Belanja Barang dan Jasa']);
-});
+Route::post('/{province}/belanja/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('belanja.delete');
 
-Route::get('/belanja/belanjaoperasi/belanjabunga', function () {
-    return view('belanja.belanjaoperasi.belanjabunga', ['title' => 'Belanja Bunga']);
-});
+Route::get('/{province}/pembiayaan', [FinancialDataController::class, 'showPembiayaan']);
 
-Route::get('/belanja/belanjaoperasi/belanjahibah', function () {
-    return view('belanja.belanjaoperasi.belanjahibah', ['title' => 'Belanja Hibah']);
-});
+Route::post('/{province}/pembiayaan/create', [FinancialDataController::class, 'createFinancialData'])->name('pembiayaan.create');
 
-Route::get('/belanja/belanjaoperasi/belanjabansos', function () {
-    return view('belanja.belanjaoperasi.belanjabansos', ['title' => 'Belanja Bantuan Sosial']);
-});
+Route::post('/{province}/pembiayaan/update', [FinancialDataController::class, 'updateFinancialData'])->name('pembiayaan.update');
 
-Route::get('/belanja/belanjamodal', function () {
-    return view('belanja.belanjamodal', ['title' => 'Belanja Modal']);
-});
+Route::post('/{province}/pembiayaan/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pembiayaan.delete');
 
-Route::get('/belanja/belanjamodal/tanah', function () {
-    return view('belanja.belanjamodal.tanah', ['title' => 'Belanja Modal Tanah']);
-});
+Route::get('/{province}/pendapatan/pendapatanaslidaerah', [FinancialDataController::class, 'showPendapatanAsliDaerah']);
 
-Route::get('/belanja/belanjamodal/peralatanmesin', function () {
-    return view('belanja.belanjamodal.peralatanmesin', ['title' => 'Belanja Modal Peralatan dan Mesin']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatanaslidaerah.create');
 
-Route::get('/belanja/belanjamodal/gedungbangunan', function () {
-    return view('belanja.belanjamodal.gedungbangunan', ['title' => 'Belanja Modal Gedung dan Bangunan']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatanaslidaerah.update');
 
-Route::get('/belanja/belanjamodal/jalanirigasijaringan', function () {
-    return view('belanja.belanjamodal.jalanirigasijaringan', ['title' => 'Belanja Modal Jalan, Irigasi, dan Jaringan']);
-});
+Route::get('/{province}/pendapatan/pendapatanaslidaerah/pajakdaerah', [FinancialDataController::class, 'showPendapatanPajakDaerah']);
 
-Route::get('/belanja/belanjamodal/asettetaplainnya', function () {
-    return view('belanja.belanjamodal.asettetaplainnya', ['title' => 'Belanja Modal Aset Tetap Lainnya']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/pajakdaerah/create', [FinancialDataController::class, 'createFinancialData'])->name('pajakdaerah.create');
 
-Route::get('/belanja/belanjamodal/asetlainnya', function () {
-    return view('belanja.belanjamodal.asetlainnya', ['title' => 'Belanja Modal Asett Lainnya']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/pajakdaerah/update', [FinancialDataController::class, 'updateFinancialData'])->name('pajakdaerah.update');
 
-Route::get('/belanja/belanjatakterduga', function () {
-    return view('belanja.belanjatakterduga', ['title' => 'Belanja Tak Terduga']);
-});
+Route::get('/{province}/pendapatan/pendapatanaslidaerah/retribusidaerah', [FinancialDataController::class, 'showPendapatanRetribusiDaerah']);
 
-Route::get('/belanja/belanjatransfer', function () {
-    return view('belanja.belanjatransfer', ['title' => 'Belanja Transfer']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/retribusidaerah/create', [FinancialDataController::class, 'createFinancialData'])->name('retribusidaerah.create');
 
-Route::get('/pembiayaan', function () {
-    return view('pembiayaan', ['title' => 'Pembiayaan Daerah']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/retribusidaerah/update', [FinancialDataController::class, 'updateFinancialData'])->name('retribusidaerah.update');
 
-Route::get('/pembiayaan/penerimaan', function () {
-    return view('pembiayaan.penerimaan', ['title' => 'Penerimaan Pembiayaan Daerah']);
-});
+Route::get('/{province}/pendapatan/pendapatanaslidaerah/phpkdd', [FinancialDataController::class, 'showPendapatanHPKDD']);
 
-Route::get('/pembiayaan/pengeluaran', function () {
-    return view('pembiayaan.pengeluaran', ['title' => 'Pengeluaran Pembiayaan Daerah']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/phpkdd/create', [FinancialDataController::class, 'createFinancialData'])->name('phpkdd.create');
 
-Route::get('/pembiayaan/silpa', function () {
-    return view('pembiayaan.silpa', ['title' => 'Sisa Lebih Pembiayaan Anggaran Tahun Berkenaan (SILPA)']);
-});
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/phpkdd/update', [FinancialDataController::class, 'updateFinancialData'])->name('phpkdd.update');
+
+Route::get('/{province}/pendapatan/pendapatanaslidaerah/lainlainpad', [FinancialDataController::class, 'showPendapatanLainLainPAD']);
+
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/lainlainpad/create', [FinancialDataController::class, 'createFinancialData'])->name('lainlainpad.create');
+
+Route::post('/{province}/pendapatan/pendapatanaslidaerah/lainlainpad/update', [FinancialDataController::class, 'updateFinancialData'])->name('lainlainpad.update');
+
+

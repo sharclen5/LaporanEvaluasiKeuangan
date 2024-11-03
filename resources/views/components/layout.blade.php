@@ -17,16 +17,16 @@
     <div class="min-h-full">
         @if (!request()->routeIs('index', 'home'))
             <x-navbar :province="$province"></x-navbar>
-        @else 
+        @else
             <x-navbarhome></x-navbarhome>
         @endif
 
         @if (!request()->routeIs('index', 'home'))
             <x-header>{{ $title }}</x-header>
-            @else 
+        @else
             <x-header />
         @endif
-        
+
 
         <main>
             <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
@@ -36,7 +36,20 @@
 
     </div>
 
-
+    <script>
+        document.getElementById('year').addEventListener('change', function() {
+            const year = this.value;
+            if (year) {
+                fetch(`/get-data-by-year?year=${year}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('budget').value = data[0].budget || '';
+                        document.getElementById('realization').value = data[0].realization || '';
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
 
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>

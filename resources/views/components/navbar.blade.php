@@ -27,7 +27,7 @@
                             <div id="pendapatan" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="pendapatanButton">
                                 <div id="pndptnasli">
-                                    <a href="/pendapatan/pendapatanaslidaerah">
+                                    <a href="{{ url('/' . $province . '/pendapatan/pendapatanaslidaerah') }}" :active="request()->is('pendapatan/pendapatanaslidaerah')">
                                     <button id="pendapatanasliDropdownButton" data-dropdown-toggle="pendapatanasliDropdown" data-dropdown-delay="500" data-dropdown-placement="right-start" data-dropdown-trigger="hover" type="button" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Asli Daerah
                                     <svg class="w-2.5 h-2.5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
@@ -38,16 +38,16 @@
                                     <div id="pendapatanasliDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="pendapatanasliDropdownButton">
                                             <li>
-                                                <a href="/pendapatan/pendapatanaslidaerah/pajakdaerah" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Pajak Daerah</a>
+                                                <a href="{{ url('/' . $province . '/pendapatan/pendapatanaslidaerah/pajakdaerah') }}" :active="request()->is('pendapatan/pendapatanaslidaerah/pajakdaerah')" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Pajak Daerah</a>
                                             </li>
                                             <li>
-                                                <a href="/pendapatan/pendapatanaslidaerah/retribusidaerah" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Retribusi Daerah</a>
+                                                <a href="{{ url('/' . $province . '/pendapatan/pendapatanaslidaerah/retribusidaerah') }}" :active="request()->is('pendapatan/pendapatanaslidaerah/retribusidaerah')" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Retribusi Daerah</a>
                                             </li>
                                             <li>
-                                                <a href="/pendapatan/pendapatanaslidaerah/phpkdd" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan</a>
+                                                <a href="{{ url('/' . $province . '/pendapatan/pendapatanaslidaerah/phpkdd') }}" :active="request()->is('pendapatan/pendapatanaslidaerah/phpkdd')" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Hasil Pengelolaan Kekayaan Daerah yang Dipisahkan</a>
                                             </li>
                                             <li>
-                                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lain-lain PAD yang Sah</a>
+                                                <a href="{{ url('/' . $province . '/pendapatan/pendapatanaslidaerah/lainlainpad') }}" :active="request()->is('pendapatan/pendapatanaslidaerah/lainlainpad')" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lain-lain PAD yang Sah</a>
                                             </li>
                                             </ul>
                                     </div>
@@ -55,11 +55,7 @@
                                 </div>
                                 
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Transfer</a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lain-lain Pendapatan Daerah yang Sah</a>
+                                    <a href="{{ url('/' . $province . '/pendapatan/pendapatantransfer') }}" :active="request()->is('pendapatan/pendapatantransfer')" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pendapatan Transfer</a>
                                 </li>
 
                                 </ul>
@@ -154,7 +150,7 @@
                         </div>
 
                         <div id="pmbyn">
-                            <x-nav-link href="/pembiayaan">
+                            <x-nav-link href="{{ url('/' . $province . '/pembiayaan') }}" :active="request()->is('pembiayaan')">
                             <button id="pembiayaanButton" data-dropdown-toggle="pembiayaan" data-dropdown-delay="500" data-dropdown-trigger="hover" type="button">Pembiayaan
                             </button>
                             </x-nav-link>
