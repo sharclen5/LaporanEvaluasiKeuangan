@@ -11,13 +11,8 @@ class FinancialDataController extends Controller
 
     public function showDashboard($province)
     {
-        // Set the title dynamically based on the province
         $title = 'Dashboard ' . $province;
 
-        // $id = Province::where('name', $province)->first()->id;
-        // dd($id);
-
-        // Return the view with the title and province data
         return view('dashboard', [
             'title' => $title,
             'province' => $province,
@@ -53,13 +48,14 @@ class FinancialDataController extends Controller
     public function getDataByYear(Request $request)
     {
         $year = $request->input('year');
+        $categoryId = $request->input('categories_id');
 
-        // Ambil data berdasarkan tahun yang dipilih
-        $data = FinancialData::where('year', $year)->get();
+        $data = FinancialData::where('year', $year)
+            ->where('categories_id', $categoryId)
+            ->get();
 
         return response()->json($data);
     }
-
 
     public function createFinancialData(Request $request, $province)
     {
@@ -98,11 +94,16 @@ class FinancialDataController extends Controller
             'year' => 'required|integer',
             'budget' => 'required|numeric',
             'realization' => 'required|numeric',
+            'categories_id' => 'required|integer', // Add validation for categories_id
         ]);
 
-        // Find the FinancialData entry to update
+        // Get categories_id from the request
+        $categories_id = $request->input('categories_id');
+
+        // Find the FinancialData entry to update, filtering by categories_id
         $financialData = FinancialData::where('province_id', Province::where('name', $province)->first()->id)
             ->where('year', $request->input('year'))
+            ->where('categories_id', $categories_id) // Filter by categories_id
             ->first();
 
         if (!$financialData) {
@@ -115,6 +116,41 @@ class FinancialDataController extends Controller
         $financialData->save();
 
         return redirect()->back()->with('success', 'Data updated successfully.');
+    }
+
+    public function deleteFinancialData(Request $request, $province)
+    {
+        // Validate input data
+        $request->validate([
+            'year' => 'required|integer',
+            'categories_id' => 'required|integer',
+        ]);
+
+        // Find the province by name
+        $provinceModel = Province::where('name', $province)->first();
+        if (!$provinceModel) {
+            return response()->json(['error' => 'Province not found.'], 404);
+        }
+
+        // Get year and categories_id from request
+        $year = $request->input('year');
+        $categories_id = $request->input('categories_id');
+
+        // Find the FinancialData entry to delete
+        $financialData = FinancialData::where('province_id', $provinceModel->id)
+            ->where('year', $year)
+            ->where('categories_id', $categories_id)
+            ->first();
+
+        if (!$financialData) {
+            return response()->json(['error' => 'Data not found.'], 404);
+        }
+
+        if ($financialData->delete()) {
+            return response()->json(['success' => 'Data deleted successfully.'], 200);
+        } else {
+            return response()->json(['error' => 'Failed to delete data.'], 500);
+        }
     }
 
     public function showPendapatan($province)

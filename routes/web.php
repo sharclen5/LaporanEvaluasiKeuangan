@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialDataController;
+use App\Http\Controllers\FileDownloadController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -16,7 +17,7 @@ Route::post('/{province}/pendapatan/create', [FinancialDataController::class, 'c
 
 Route::post('/{province}/pendapatan/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
 
-Route::post('/{province}/pendapatan/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatan.delete');
+Route::delete('/{province}/pendapatan/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatan.delete');
 
 Route::get('/{province}/belanja', [FinancialDataController::class, 'showBelanja']);
 
