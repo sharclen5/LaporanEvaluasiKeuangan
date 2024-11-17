@@ -56,17 +56,17 @@
                             tabindex="-1">
 
                             <!-- Your Profile Link -->
-                            <a href="/profile" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                            <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300" role="menuitem"
                                 tabindex="-1" id="user-menu-item-0">Your Profile</a>
                             @if (Auth::check() && Auth::user()->role == 'admin')
                                 <!-- User Management Link -->
-                                <a href="/user-management" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                <a href="/user-management" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-300" role="menuitem"
                                     tabindex="-1" id="user-menu-item-1">User Management</a>
                             @endif
                             <!-- Logout Form -->
                             <form method="POST" action="{{ route('logout') }}" class="block">
                                 @csrf
-                                <button type="submit" class="w-full px-4 py-2 text-left text-sm text-gray-700"
+                                <button type="submit" class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-300"
                                     role="menuitem" tabindex="-1" id="user-menu-item-2">
                                     Logout
                                 </button>
