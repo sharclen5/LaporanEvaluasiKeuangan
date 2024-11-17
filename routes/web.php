@@ -1,15 +1,36 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialDataController;
-use App\Http\Controllers\FileDownloadController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('home');
+
+    Route::get('/{province?}/dashboard', [FinancialDataController::class, 'showDashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::get('/get-data-by-year', [FinancialDataController::class, 'getDataByYear'])->name('getDataByYear');
 
-Route::get('/{province}/dashboard', [FinancialDataController::class, 'showDashboard'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
+
+Route::get('/user-management', [UserController::class, 'index'])->name('users.index');
+
+Route::post('/user-management/store', [UserController::class, 'store'])->name('users.store');
+
+Route::post('/user-management/update/{id}', [UserController::class, 'update'])->name('users.update');
+
+Route::delete('/user-management/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 Route::get('/{province}/pendapatan', [FinancialDataController::class, 'showPendapatan']);
 
@@ -64,5 +85,3 @@ Route::get('/{province}/pendapatan/pendapatanaslidaerah/lainlainpad', [Financial
 Route::post('/{province}/pendapatan/pendapatanaslidaerah/lainlainpad/create', [FinancialDataController::class, 'createFinancialData'])->name('lainlainpad.create');
 
 Route::post('/{province}/pendapatan/pendapatanaslidaerah/lainlainpad/update', [FinancialDataController::class, 'updateFinancialData'])->name('lainlainpad.update');
-
-

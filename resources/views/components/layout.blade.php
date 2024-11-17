@@ -1,4 +1,5 @@
-@props(['province'])
+@props(['title', 'province' => null])
+
 
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-100">
@@ -16,13 +17,13 @@
 <body class="h-full" data-province="{{ $province ?? '' }}">
 
     <div class="min-h-full">
-        @if (!request()->routeIs('index', 'home'))
+        @if (!request()->routeIs('index', 'home', 'users.index'))
             <x-navbar :province="$province"></x-navbar>
         @else
             <x-navbarhome></x-navbarhome>
         @endif
 
-        @if (!request()->routeIs('index', 'home'))
+        @if (!request()->routeIs('index', 'home',))
             <x-header>{{ $title }}</x-header>
         @else
             <x-header />
@@ -60,33 +61,36 @@
 
 
         function confirmDelete() {
-            if (confirm("Are you sure you want to delete this entry?")) {
-                const year = document.getElementById('year').value;
-                const categoryId = document.querySelector('input[name="categories_id"]').value;
-                const province = document.body.getAttribute('data-province'); // Ambil province dari data attribute
+    const year = document.getElementById('year').value;
+    const categoryId = document.querySelector('input[name="categories_id"]').value;
+    const province = document.body.getAttribute('data-province');
 
-                fetch(`/${province}/pendapatan/delete`, {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            year: year,
-                            categories_id: categoryId
-                        })
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("Data deleted successfully.");
-                            location.reload();
-                        } else {
-                            alert("Failed to delete data.");
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
+    fetch(`/${province}/pendapatan/delete`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            year: year,
+            categories_id: categoryId
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Data deleted successfully.");
+            // Close the modal
+            const deleteModal = document.getElementById('delete-modal');
+            deleteModal.classList.add('hidden'); // Hides the modal
+            location.reload(); // Reloads the page
+        } else {
+            alert("Failed to delete data.");
         }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
 
         document.getElementById('downloadPdf').addEventListener('click', function() {
             const element = document.querySelector(
@@ -142,8 +146,6 @@
             link.click();
             document.body.removeChild(link);
         });
-
-
     </script>
 
 

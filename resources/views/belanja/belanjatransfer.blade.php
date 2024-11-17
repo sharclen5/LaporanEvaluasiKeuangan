@@ -5,8 +5,8 @@
         <div class="relative overflow-x-auto sm:rounded-lg mb-8">
             <h2>Belanja Transfer</h2>
             <h2>Gambaran Realisasi Belanja Transfer dalam 5 (lima) tahun terakhir (TA 2019 s.d. TA 2023), sebagaimana tabel berikut:</h2>
-            <table class="mt-5 w-full shadow-md text-sm text-center rtl:text-right dark:text-gray-400">
-                <thead class="text-xs bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+            <table class="mt-5 w-full shadow-md text-sm text-center rtl:text-right">
+                <thead class="text-xs bg-gray-300">
                     <tr>
                         <th scope="col" class="px-6 py-3 border-r">
                             Tahun
@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                     <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        class="bg-white border-b hover:bg-gray-50">
                         <td scope="row"
                             class="px-6 py-4 border-r">
                             2019
@@ -40,7 +40,7 @@
                         </td>
                     </tr>
                     <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        class="bg-white border-b hover:bg-gray-50">
                         <td scope="row"
                             class="px-6 py-4 border-r">
                             2020
@@ -55,7 +55,7 @@
                             98,35
                         </td>
                     </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr class="bg-white border-b hover:bg-gray-50">
                         <td scope="row"
                             class="px-6 py-4 border-r">
                             2021
@@ -70,7 +70,7 @@
                             98,11
                         </td>
                     </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr class="bg-white border-b hover:bg-gray-50">
                         <td scope="row"
                             class="px-6 py-4 border-r">
                             2022
@@ -85,7 +85,7 @@
                             96,36
                         </td>
                     </tr>
-                    <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr class="bg-white hover:bg-gray-50">
                         <td scope="row"
                             class="px-6 py-4 border-r">
                             2023
