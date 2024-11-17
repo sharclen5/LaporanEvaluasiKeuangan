@@ -280,8 +280,12 @@
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                 <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full" src="{{ asset('images/minisui.png') }}"
-                                    alt="">
+                                @if (Auth::user()->photo)
+                                    <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="{{ Auth::user()->name }}"
+                                        class="w-8 h-8 object-cover rounded-full">
+                                @else
+                                    <span class="text-gray-500">No Image</span>
+                                @endif
                             </button>
                         </div>
 

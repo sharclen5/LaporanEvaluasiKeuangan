@@ -1,4 +1,6 @@
 <x-layout :title="$title">
+
+    
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div
             class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 px-6 bg-white dark:bg-gray-900">
@@ -132,6 +134,7 @@
                         <td class="w-4 p-4"></td>
                         <th scope="row"
                             class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                            <img src="{{ asset('images/minisui.png') }}" alt="Test" class="w-10 h-10 rounded-full">
                             <div class="ps-3">
                                 <div class="text-base font-semibold">{{ $user->name }}</div>
                             </div>
@@ -151,65 +154,66 @@
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow">
                                 <!-- Modal header -->
-                                <div
-                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-gray-700">
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-gray-700">
                                     <h3 class="text-lg font-semibold text-white">
                                         Edit User
                                     </h3>
                                     <button type="button"
                                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                                         data-modal-toggle="editUserModal-{{ $user->id }}">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                         </svg>
                                     </button>
                                 </div>
-
+                    
                                 <!-- Modal body -->
                                 <div class="px-6">
-                                    <form action="{{ route('users.update', $user->id) }}" method="POST"
-                                        class="p-4 md:p-5">
+                                    <!-- Circle Image -->
+                                    <div class="flex justify-center mt-4">
+                                        <div class="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                                            @if($user->photo)
+                                                <img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                            @else
+                                                <span class="text-gray-500">No Image</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                    
+                                    <form action="{{ route('users.update', $user->id) }}" method="POST" class="p-4 md:p-5" enctype="multipart/form-data">
                                         @csrf
                                         <div class="grid gap-4 mb-4 grid-cols-2">
                                             <div class="col-span-2 sm:col-span-1">
-                                                <label for="name"
-                                                    class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
+                                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama</label>
                                                 <input type="text" name="name" id="name-{{ $user->id }}"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                     placeholder="Name" value="{{ $user->name }}" required>
                                             </div>
                                             <div class="col-span-2 sm:col-span-1">
-                                                <label for="email"
-                                                    class="block mb-2 text-sm font-medium text-gray-900">Email</label>
+                                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                                                 <input type="email" name="email" id="email-{{ $user->id }}"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                                     placeholder="Email" value="{{ $user->email }}" required>
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="role-{{ $user->id }}"
-                                                    class="block text-sm font-medium text-gray-400">Role</label>
+                                                <label for="role-{{ $user->id }}" class="block text-sm font-medium text-gray-400">Role</label>
                                                 <select name="role" id="role-{{ $user->id }}"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                                     required>
-                                                    <option value="admin"
-                                                        {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                                                    <option value="user"
-                                                        {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                                                    <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                                    <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
                                                 </select>
                                             </div>
-                                            <input type="hidden" name="categories_id" value="2">
                                         </div>
                                         <div class="flex justify-between py-4">
                                             <button type="submit"
                                                 class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                                 Confirm
                                             </button>
-
-                                            <button type="button"
-                                                data-modal-target="delete-modal-{{ $user->id }}"
+                    
+                                            <button type="button" data-modal-target="delete-modal-{{ $user->id }}"
                                                 data-modal-toggle="delete-modal-{{ $user->id }}"
                                                 class="text-white inline-flex items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                                 Delete
@@ -220,6 +224,7 @@
                             </div>
                         </div>
                     </div>
+                    
 
 
                     <div id="delete-modal-{{ $user->id }}" tabindex="-1"

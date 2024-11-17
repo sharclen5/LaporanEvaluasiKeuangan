@@ -24,6 +24,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
+Route::put('/user/update-photo', [UserController::class, 'updatePhoto'])
+    ->name('user.updatePhoto')
+    ->middleware('auth');
+
+
+
 Route::get('/user-management', [UserController::class, 'index'])->name('users.index');
 
 Route::post('/user-management/store', [UserController::class, 'store'])->name('users.store');

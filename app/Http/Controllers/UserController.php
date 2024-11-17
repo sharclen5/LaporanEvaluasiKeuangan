@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -82,4 +84,35 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
+
+    public function updatePhoto(Request $request)
+{
+    // Validasi file yang diunggah
+    $request->validate([
+        'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Hanya file gambar yang diizinkan
+    ]);
+
+    // Dapatkan pengguna yang sedang login
+    $user = Auth::user(); // Properly retrieve the authenticated user
+
+    // Proses upload foto baru
+    if ($request->hasFile('photo')) {
+        // Jika sebelumnya ada foto, hapus dari storage
+        if ($user->photo) {
+            Storage::disk('public')->delete($user->photo);
+        }
+
+        // Simpan foto baru dengan nama spesifik (opsional, lihat langkah 3)
+        $photoName = 'user_' . $user->id . '.' . $request->file('photo')->getClientOriginalExtension();
+        $photoPath = $request->file('photo')->storeAs('uploads', $photoName, 'public');
+        $user->photo = $photoPath;
+    }
+
+    // Simpan perubahan data pengguna
+    $user->save(); // Ensure $user is an instance of the User model
+
+    // Redirect dengan pesan sukses
+    return redirect()->back()->with('success', 'Photo updated successfully!');
+}
+
 }
