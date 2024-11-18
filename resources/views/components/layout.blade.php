@@ -17,13 +17,13 @@
 <body class="h-full" data-province="{{ $province ?? '' }}">
 
     <div class="min-h-full">
-        @if (!request()->routeIs('index', 'home', 'users.index'))
+        @if (!request()->routeIs('index', 'home', 'users.index', 'profile.edit'))
             <x-navbar :province="$province"></x-navbar>
         @else
             <x-navbarhome></x-navbarhome>
         @endif
 
-        @if (!request()->routeIs('index', 'home',))
+        @if (!request()->routeIs('index', 'home','profile.edit'))
             <x-header>{{ $title }}</x-header>
         @else
             <x-header />

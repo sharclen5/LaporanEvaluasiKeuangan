@@ -284,7 +284,7 @@
                                     <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="{{ Auth::user()->name }}"
                                         class="w-8 h-8 object-cover rounded-full">
                                 @else
-                                    <span class="text-gray-500">No Image</span>
+                                    <img src="{{ asset('images/minisui.png') }}" alt="" class="w-8 h-8 object-cover rounded-full">
                                 @endif
                             </button>
                         </div>
