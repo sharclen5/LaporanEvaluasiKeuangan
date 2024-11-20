@@ -1,31 +1,16 @@
 import "./bootstrap";
 import "flowbite";
 
-const getChartOptions = () => {
-    return {
-        series: [20, 25, 55],
-        colors: ["#1C64F2", "#16BDCA", "#9061F9"],
+const renderChart = (id, percentage) => {
+    const options = {
+        series: [percentage, 100 - percentage],
+        colors: ["#1C64F2", "#16BDCA"],
         chart: {
             height: 420,
             width: "100%",
             type: "pie",
         },
-        stroke: {
-            colors: ["white"],
-            lineCap: "",
-        },
-        plotOptions: {
-            pie: {
-                labels: {
-                    show: true,
-                },
-                size: "100%",
-                dataLabels: {
-                    offset: -25,
-                },
-            },
-        },
-        labels: ["Direct", "Organic search", "Referrals"],
+        labels: ["Realisasi", "Sisa"],
         dataLabels: {
             enabled: true,
             style: {
@@ -36,61 +21,20 @@ const getChartOptions = () => {
             position: "bottom",
             fontFamily: "Inter, sans-serif",
         },
-        yaxis: {
-            labels: {
-                formatter: function (value) {
-                    return value + "%";
-                },
-            },
-        },
-        xaxis: {
-            labels: {
-                formatter: function (value) {
-                    return value + "%";
-                },
-            },
-            axisTicks: {
-                show: false,
-            },
-            axisBorder: {
-                show: false,
-            },
-        },
     };
+
+    const chartElement = document.getElementById(id);
+    if (chartElement && typeof ApexCharts !== "undefined") {
+        const chart = new ApexCharts(chartElement, options);
+        chart.render();
+    }
 };
 
-if (
-    document.getElementById("pendapatan-chart") &&
-    typeof ApexCharts !== "undefined"
-) {
-    const chart = new ApexCharts(
-        document.getElementById("pendapatan-chart"),
-        getChartOptions()
-    );
-    chart.render();
-}
+document.querySelectorAll('[id$="-chart"]').forEach((chart) => {
+    const percentage = parseFloat(chart.getAttribute("data-percentage")) || 0;
+    renderChart(chart.id, percentage);
+});
 
-if (
-    document.getElementById("belanja-chart") &&
-    typeof ApexCharts !== "undefined"
-) {
-    const chart = new ApexCharts(
-        document.getElementById("belanja-chart"),
-        getChartOptions()
-    );
-    chart.render();
-}
-
-if (
-    document.getElementById("pembiayaan-chart") &&
-    typeof ApexCharts !== "undefined"
-) {
-    const chart = new ApexCharts(
-        document.getElementById("pembiayaan-chart"),
-        getChartOptions()
-    );
-    chart.render();
-}
 
 document
     .getElementById("photo-upload")

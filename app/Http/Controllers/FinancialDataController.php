@@ -9,15 +9,69 @@ use App\Models\FinancialData;
 class FinancialDataController extends Controller
 {
 
-    public function showDashboard($province)
-    {
-        $title = 'Dashboard ' . $province;
+    // public function showDashboard($province)
+    // {
+    //     $title = 'Dashboard ' . $province;
 
-        return view('dashboard', [
-            'title' => $title,
-            'province' => $province,
-        ]);
+    //     return view('dashboard', [
+    //         'title' => $title,
+    //         'province' => $province,
+    //     ]);
+    // }
+
+
+    public function showDashboard($province, Request $request)
+{
+    $title = 'Dashboard ' . $province;
+
+    // Mendapatkan data provinsi
+    $provinceModel = Province::where('name', $province)->first();
+    if (!$provinceModel) {
+        return redirect()->back()->with('error', 'Province not found.');
     }
+
+    $provinceId = $provinceModel->id;
+
+    // Mendapatkan tahun dari request, jika tidak ada gunakan tahun terbaru
+    $selectedYear = $request->get('year', date('Y'));
+
+    // Mendapatkan data persentase berdasarkan kategori
+    $pendapatanPercentage = FinancialData::where('province_id', $provinceId)
+        ->where('categories_id', 1)
+        ->where('year', $selectedYear)
+        ->value('percentage') ?? 0;
+
+    $belanjaPercentage = FinancialData::where('province_id', $provinceId)
+        ->where('categories_id', 2)
+        ->where('year', $selectedYear)
+        ->value('percentage') ?? 0;
+
+    $pembiayaanPercentage = FinancialData::where('province_id', $provinceId)
+        ->where('categories_id', 3)
+        ->where('year', $selectedYear)
+        ->value('percentage') ?? 0;
+
+    // Mendapatkan daftar tahun yang tersedia
+    $years = FinancialData::where('province_id', $provinceId)
+        ->distinct()
+        ->orderBy('year', 'asc')
+        ->pluck('year');
+
+    return view('dashboard', [
+        'title' => $title,
+        'province' => $province,
+        'years' => $years,
+        'selectedYear' => $selectedYear,
+        'percentages' => [
+            'pendapatan' => $pendapatanPercentage,
+            'belanja' => $belanjaPercentage,
+            'pembiayaan' => $pembiayaanPercentage,
+        ],
+    ]);
+}
+
+
+    
 
     private function calculateAverageRealization($provinceId, $categoryId)
     {
@@ -50,33 +104,56 @@ class FinancialDataController extends Controller
         $year = $request->input('year');
         $categoryId = $request->input('categories_id');
 
+        // Validasi input
+        if (!$year || !$categoryId) {
+            return response()->json([], 400); // Bad Request jika parameter tidak lengkap
+        }
+
+        // Ambil data hanya jika `deleted_at` bernilai NULL
         $data = FinancialData::where('year', $year)
             ->where('categories_id', $categoryId)
+            ->whereNull('deleted_at')
+            ->orderBy('id', 'desc')
             ->get();
 
         return response()->json($data);
     }
 
+
     public function createFinancialData(Request $request, $province)
     {
+        // Validasi input
         $request->validate([
-            'year' => 'required|integer',
+            'year' => 'required|integer|min:1945|max:2999',
             'budget' => 'required|numeric',
             'realization' => 'required|numeric',
             'categories_id' => 'required|integer',
         ]);
 
+        // Cari provinsi berdasarkan nama
         $provinceModel = Province::where('name', $province)->first();
         if (!$provinceModel) {
             return redirect()->back()->with('error', 'Province not found.');
         }
 
         $categoriesId = $request->input('categories_id');
+        $year = $request->input('year');
 
+        // Validasi tidak ada tahun yang sama untuk kategori dan provinsi yang sama
+        $existingData = FinancialData::where('province_id', $provinceModel->id)
+            ->where('categories_id', $categoriesId)
+            ->where('year', $year)
+            ->first();
+
+        if ($existingData) {
+            return redirect()->back()->with('error', 'Data untuk tahun tersebut sudah ada, harap periksa kembali.');
+        }
+
+        // Simpan data baru
         $financialData = new FinancialData();
         $financialData->province_id = $provinceModel->id;
         $financialData->categories_id = $categoriesId;
-        $financialData->year = $request->input('year');
+        $financialData->year = $year;
         $financialData->budget = $request->input('budget');
         $financialData->realization = $request->input('realization');
 

@@ -10,7 +10,7 @@ Route::get('/', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('home');
 
-    Route::get('/{province?}/dashboard', [FinancialDataController::class, 'showDashboard'])
+Route::get('/{province?}/dashboard', [FinancialDataController::class, 'showDashboard'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -28,8 +28,6 @@ Route::put('/user/update-photo', [UserController::class, 'updatePhoto'])
     ->name('user.updatePhoto')
     ->middleware('auth');
 
-
-
 Route::get('/user-management', [UserController::class, 'index'])->name('users.index');
 
 Route::post('/user-management/store', [UserController::class, 'store'])->name('users.store');
@@ -38,41 +36,40 @@ Route::post('/user-management/update/{id}', [UserController::class, 'update'])->
 
 Route::delete('/user-management/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
-Route::get('/{province}/pendapatan', [FinancialDataController::class, 'showPendapatan']);
+Route::prefix('{province}/pendapatan')->group(function () {
+    Route::get('/', [FinancialDataController::class, 'showPendapatan']);
+    Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatan.create');
+    Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
+    Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatan.delete');
+});
 
-Route::post('/{province}/pendapatan/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatan.create');
+Route::prefix('{province}/belanja')->group(function () {
+    Route::get('/', [FinancialDataController::class, 'showBelanja']);
+    Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('belanja.create');
+    Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('belanja.update');
+    Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('belanja.delete');
+});
 
-Route::post('/{province}/pendapatan/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
+Route::prefix('{province}/pembiayaan')->group(function () {
+    Route::get('/', [FinancialDataController::class, 'showPembiayaan']);
+    Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('pembiayaan.create');
+    Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('pembiayaan.update');
+    Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pembiayaan.delete');
+});
 
-Route::delete('/{province}/pendapatan/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatan.delete');
+Route::prefix('{province}/pendapatan/pendapatanaslidaerah')->group(function () {
+    Route::get('/', [FinancialDataController::class, 'showPendapatanAsliDaerah']);
+    Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatanaslidaerah.create');
+    Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatanaslidaerah.update');
+    Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatanaslidaerah.delete');
+});
 
-Route::get('/{province}/belanja', [FinancialDataController::class, 'showBelanja']);
-
-Route::post('/{province}/belanja/create', [FinancialDataController::class, 'createFinancialData'])->name('belanja.create');
-
-Route::post('/{province}/belanja/update', [FinancialDataController::class, 'updateFinancialData'])->name('Belanja.update');
-
-Route::post('/{province}/belanja/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('belanja.delete');
-
-Route::get('/{province}/pembiayaan', [FinancialDataController::class, 'showPembiayaan']);
-
-Route::post('/{province}/pembiayaan/create', [FinancialDataController::class, 'createFinancialData'])->name('pembiayaan.create');
-
-Route::post('/{province}/pembiayaan/update', [FinancialDataController::class, 'updateFinancialData'])->name('pembiayaan.update');
-
-Route::post('/{province}/pembiayaan/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pembiayaan.delete');
-
-Route::get('/{province}/pendapatan/pendapatanaslidaerah', [FinancialDataController::class, 'showPendapatanAsliDaerah']);
-
-Route::post('/{province}/pendapatan/pendapatanaslidaerah/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatanaslidaerah.create');
-
-Route::post('/{province}/pendapatan/pendapatanaslidaerah/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatanaslidaerah.update');
-
-Route::get('/{province}/pendapatan/pendapatanaslidaerah/pajakdaerah', [FinancialDataController::class, 'showPendapatanPajakDaerah']);
-
-Route::post('/{province}/pendapatan/pendapatanaslidaerah/pajakdaerah/create', [FinancialDataController::class, 'createFinancialData'])->name('pajakdaerah.create');
-
-Route::post('/{province}/pendapatan/pendapatanaslidaerah/pajakdaerah/update', [FinancialDataController::class, 'updateFinancialData'])->name('pajakdaerah.update');
+Route::prefix('{province}/pendapatan/pendapatanaslidaerah/pajakdaerah')->group(function () {
+    Route::get('/', [FinancialDataController::class, 'showPendapatanPajakDaerah']);
+    Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('pajakdaerah.create');
+    Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('pajakdaerah.update');
+    Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pajakdaerah.delete');
+});
 
 Route::get('/{province}/pendapatan/pendapatanaslidaerah/retribusidaerah', [FinancialDataController::class, 'showPendapatanRetribusiDaerah']);
 

@@ -23,7 +23,7 @@
             <x-navbarhome></x-navbarhome>
         @endif
 
-        @if (!request()->routeIs('index', 'home','profile.edit'))
+        @if (!request()->routeIs('index', 'home', 'profile.edit'))
             <x-header>{{ $title }}</x-header>
         @else
             <x-header />
@@ -61,34 +61,34 @@
 
 
         function confirmDelete() {
-    const year = document.getElementById('year').value;
-    const categoryId = document.querySelector('input[name="categories_id"]').value;
-    const province = document.body.getAttribute('data-province');
+            const year = document.getElementById('year').value;
+            const categoryId = document.querySelector('input[name="categories_id"]').value;
+            const province = document.body.getAttribute('data-province');
 
-    fetch(`/${province}/pendapatan/delete`, {
-        method: 'DELETE',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            year: year,
-            categories_id: categoryId
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert("Data deleted successfully.");
-            // Close the modal
-            const deleteModal = document.getElementById('delete-modal');
-            deleteModal.classList.add('hidden'); // Hides the modal
-            location.reload(); // Reloads the page
-        } else {
-            alert("Failed to delete data.");
+            fetch(`/${province}/pendapatan/delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        year: year,
+                        categories_id: categoryId
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Data deleted successfully.");
+                        // Close the modal
+                        const deleteModal = document.getElementById('delete-modal');
+                        deleteModal.classList.add('hidden'); // Hides the modal
+                        location.reload(); // Reloads the page
+                    } else {
+                        alert("Failed to delete data.");
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
-    })
-    .catch(error => console.error('Error:', error));
-}
 
 
 
