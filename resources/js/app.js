@@ -25,15 +25,22 @@ const renderChart = (id, percentage) => {
 
     const chartElement = document.getElementById(id);
     if (chartElement && typeof ApexCharts !== "undefined") {
+        // Hapus chart lama sebelum render ulang
+        while (chartElement.firstChild) {
+            chartElement.removeChild(chartElement.firstChild);
+        }
         const chart = new ApexCharts(chartElement, options);
         chart.render();
     }
 };
 
 document.querySelectorAll('[id$="-chart"]').forEach((chart) => {
-    const percentage = parseFloat(chart.getAttribute("data-percentage")) || 0;
-    renderChart(chart.id, percentage);
+    const percentage = parseFloat(chart.getAttribute("data-percentage"));
+    if (!isNaN(percentage)) {
+        renderChart(chart.id, percentage);
+    }
 });
+
 
 
 document

@@ -21,57 +21,60 @@ class FinancialDataController extends Controller
 
 
     public function showDashboard($province, Request $request)
-{
-    $title = 'Dashboard ' . $province;
-
-    // Mendapatkan data provinsi
-    $provinceModel = Province::where('name', $province)->first();
-    if (!$provinceModel) {
-        return redirect()->back()->with('error', 'Province not found.');
-    }
-
-    $provinceId = $provinceModel->id;
-
-    // Mendapatkan tahun dari request, jika tidak ada gunakan tahun terbaru
-    $selectedYear = $request->get('year', date('Y'));
-
-    // Mendapatkan data persentase berdasarkan kategori
-    $pendapatanPercentage = FinancialData::where('province_id', $provinceId)
-        ->where('categories_id', 1)
-        ->where('year', $selectedYear)
-        ->value('percentage') ?? 0;
-
-    $belanjaPercentage = FinancialData::where('province_id', $provinceId)
-        ->where('categories_id', 2)
-        ->where('year', $selectedYear)
-        ->value('percentage') ?? 0;
-
-    $pembiayaanPercentage = FinancialData::where('province_id', $provinceId)
-        ->where('categories_id', 3)
-        ->where('year', $selectedYear)
-        ->value('percentage') ?? 0;
-
-    // Mendapatkan daftar tahun yang tersedia
-    $years = FinancialData::where('province_id', $provinceId)
-        ->distinct()
-        ->orderBy('year', 'asc')
-        ->pluck('year');
-
-    return view('dashboard', [
-        'title' => $title,
-        'province' => $province,
-        'years' => $years,
-        'selectedYear' => $selectedYear,
-        'percentages' => [
-            'pendapatan' => $pendapatanPercentage,
-            'belanja' => $belanjaPercentage,
-            'pembiayaan' => $pembiayaanPercentage,
-        ],
-    ]);
-}
-
-
+    {
+        $title = 'Dashboard ' . $province;
     
+        // Mendapatkan data provinsi
+        $provinceModel = Province::where('name', $province)->first();
+        if (!$provinceModel) {
+            return redirect()->back()->with('error', 'Province not found.');
+        }
+    
+        $provinceId = $provinceModel->id;
+    
+        // Mendapatkan tahun yang terpilih untuk setiap kategori
+        $selectedYears = [
+            'pendapatan' => $request->get('year_pendapatan', date('Y')),
+            'belanja' => $request->get('year_belanja', date('Y')),
+            'pembiayaan' => $request->get('year_pembiayaan', date('Y')),
+        ];
+    
+        // Mendapatkan data persentase berdasarkan kategori
+        $percentages = [
+            'pendapatan' => FinancialData::where('province_id', $provinceId)
+                ->where('categories_id', 1)
+                ->where('year', $selectedYears['pendapatan'])
+                ->value('percentage'),
+            'belanja' => FinancialData::where('province_id', $provinceId)
+                ->where('categories_id', 2)
+                ->where('year', $selectedYears['belanja'])
+                ->value('percentage'),
+            'pembiayaan' => FinancialData::where('province_id', $provinceId)
+                ->where('categories_id', 3)
+                ->where('year', $selectedYears['pembiayaan'])
+                ->value('percentage'),
+        ];
+    
+        // Mendapatkan daftar tahun yang tersedia
+        $years = FinancialData::where('province_id', $provinceId)
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+    
+        return view('dashboard', [
+            'title' => $title,
+            'province' => $province,
+            'years' => $years,
+            'selectedYears' => $selectedYears,
+            'percentages' => $percentages,
+        ]);
+    }
+    
+    
+
+
+
+
 
     private function calculateAverageRealization($provinceId, $categoryId)
     {
