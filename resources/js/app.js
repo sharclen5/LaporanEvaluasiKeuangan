@@ -64,3 +64,7 @@ document
             reader.readAsDataURL(file);
         }
     });
+
+
+
+

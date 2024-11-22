@@ -5,14 +5,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialDataController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\ForceLowercaseUrl;
 
 Route::get('/', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('home');
 
-Route::get('/{province?}/dashboard', [FinancialDataController::class, 'showDashboard'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    Route::middleware([ForceLowercaseUrl::class])->group(function () {
+        Route::get('/{province}/dashboard', [FinancialDataController::class, 'showDashboard'])
+            ->middleware(['auth', 'verified'])
+            ->name('dashboard');
+    });
 
 Route::get('/get-data-by-year', [FinancialDataController::class, 'getDataByYear'])->name('getDataByYear');
 
@@ -28,26 +31,29 @@ Route::put('/user/update-photo', [UserController::class, 'updatePhoto'])
     ->name('user.updatePhoto')
     ->middleware('auth');
 
-Route::get('/user-management', [UserController::class, 'index'])->name('users.index');
-
-Route::post('/user-management/store', [UserController::class, 'store'])->name('users.store');
-
-Route::post('/user-management/update/{id}', [UserController::class, 'update'])->name('users.update');
-
-Route::delete('/user-management/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-
-Route::prefix('{province}/pendapatan')->group(function () {
-    Route::get('/', [FinancialDataController::class, 'showPendapatan']);
-    Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatan.create');
-    Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
-    Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatan.delete');
+Route::middleware('auth')->prefix('user-management')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index');
+    Route::post('/store', [UserController::class, 'store'])->name('users.store');
+    Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
-Route::prefix('{province}/belanja')->group(function () {
-    Route::get('/', [FinancialDataController::class, 'showBelanja']);
-    Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('belanja.create');
-    Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('belanja.update');
-    Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('belanja.delete');
+Route::middleware([ForceLowercaseUrl::class])->group(function () {
+    Route::prefix('{province}/pendapatan')->group(function () {
+        Route::get('/', [FinancialDataController::class, 'showPendapatan']);
+        Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('pendapatan.create');
+        Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('pendapatan.update');
+        Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('pendapatan.delete');
+    });
+});
+
+Route::middleware([ForceLowercaseUrl::class])->group(function () {
+    Route::prefix('{province}/belanja')->group(function () {
+        Route::get('/', [FinancialDataController::class, 'showBelanja']);
+        Route::post('/create', [FinancialDataController::class, 'createFinancialData'])->name('belanja.create');
+        Route::post('/update', [FinancialDataController::class, 'updateFinancialData'])->name('belanja.update');
+        Route::delete('/delete', [FinancialDataController::class, 'deleteFinancialData'])->name('belanja.delete');
+    });
 });
 
 Route::prefix('{province}/pembiayaan')->group(function () {

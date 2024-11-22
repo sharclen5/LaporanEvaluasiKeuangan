@@ -39,25 +39,44 @@
     </div>
 
     <script>
-        document.getElementById('year').addEventListener('change', function() {
-            const year = this.value;
-            const categoryId = document.querySelector('input[name="categories_id"]').value;
+        document.getElementById('year').addEventListener('change', function () {
+    const year = this.value;
+    const categoryId = document.querySelector('input[name="categories_id"]').value;
 
-            if (year && categoryId) {
-                fetch(`/get-data-by-year?year=${year}&categories_id=${categoryId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length > 0) {
-                            document.getElementById('budget').value = data[0].budget || '';
-                            document.getElementById('realization').value = data[0].realization || '';
-                        } else {
-                            document.getElementById('budget').value = '';
-                            document.getElementById('realization').value = '';
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        });
+    if (year && categoryId) {
+        fetch(`/get-data-by-year?year=${year}&categories_id=${categoryId}`)
+            .then(response => {
+                if (!response.ok) {
+                    alert('An error occurred while fetching data.');
+                    throw new Error(`HTTP status ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.length > 0) {
+                    // Validasi jika `deleted_at` tidak null (optional di sisi JS)
+                    const validData = data.filter(item => !item.deleted_at);
+
+                    if (validData.length > 0) {
+                        document.getElementById('budget').value = validData[0]?.budget || '';
+                        document.getElementById('realization').value = validData[0]?.realization || '';
+                    } else {
+                        document.getElementById('budget').value = '';
+                        document.getElementById('realization').value = '';
+                    }
+                } else {
+                    // Reset nilai jika tidak ada data valid
+                    document.getElementById('budget').value = '';
+                    document.getElementById('realization').value = '';
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    } else {
+        alert('Please select a year and ensure category ID is available.');
+    }
+});
+
+
 
 
         function confirmDelete() {
@@ -99,7 +118,7 @@
             // Set PDF options
             const options = {
                 margin: 0.5,
-                filename: 'Pendapatan_Provinsi_Aceh.pdf',
+                filename: 'Laporan_Keuangan_Daerah.pdf',
                 image: {
                     type: 'jpeg',
                     quality: 0.98
@@ -141,7 +160,7 @@
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = 'Pendapatan_Provinsi_Aceh.doc';
+            link.download = 'Laporan_Keuangan_Daerah.doc';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

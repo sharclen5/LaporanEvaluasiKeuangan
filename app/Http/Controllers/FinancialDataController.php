@@ -9,26 +9,17 @@ use App\Models\FinancialData;
 class FinancialDataController extends Controller
 {
 
-    // public function showDashboard($province)
-    // {
-    //     $title = 'Dashboard ' . $province;
-
-    //     return view('dashboard', [
-    //         'title' => $title,
-    //         'province' => $province,
-    //     ]);
-    // }
-
-
     public function showDashboard($province, Request $request)
     {
-        $title = 'Dashboard ' . $province;
     
         // Mendapatkan data provinsi
-        $provinceModel = Province::where('name', $province)->first();
+        $provinceModel = Province::whereRaw('LOWER(name) = ?', [strtolower($province)])->first();
         if (!$provinceModel) {
             return redirect()->back()->with('error', 'Province not found.');
         }
+
+        $provinceName = $provinceModel->name; // Ambil nama asli dengan case dari database
+        $title = 'Dashboard ' . $provinceName;
     
         $provinceId = $provinceModel->id;
     
@@ -71,11 +62,6 @@ class FinancialDataController extends Controller
     }
     
     
-
-
-
-
-
     private function calculateAverageRealization($provinceId, $categoryId)
     {
         // Ambil data realisasi 5 tahun terakhir berdasarkan province dan kategori
@@ -235,13 +221,16 @@ class FinancialDataController extends Controller
 
     public function showPendapatan($province)
     {
-        $title = 'Pendapatan Provinsi ' . $province;
+    
         $subTitle = 'Pendapatan';
 
-        $provinceModel = Province::where('name', $province)->first();
+        $provinceModel = Province::whereRaw('LOWER(name) = ?', [strtolower($province)])->first();
         if (!$provinceModel) {
             return redirect()->back()->with('error', 'Province not found.');
         }
+
+        $provinceName = $provinceModel->name; // Ambil nama asli dengan case dari database
+        $title = 'Pendapatan Provinsi ' . $provinceName;
 
         $provinceId = $provinceModel->id;
         $datas = FinancialData::where('province_id', $provinceId)->where('categories_id', 1)->get();
@@ -251,7 +240,7 @@ class FinancialDataController extends Controller
 
         return view('pendapatan', [
             'title' => $title,
-            'province' => $province,
+            'province' => $provinceName,
             'datas' => $datas,
             'subTitle' => $subTitle,
             'averagePercentageChange' => $averagePercentageChange,
@@ -261,13 +250,16 @@ class FinancialDataController extends Controller
 
     public function showBelanja($province)
     {
-        $title = 'Belanja Provinsi ' . $province;
+    
         $subTitle = 'Belanja';
 
-        $provinceModel = Province::where('name', $province)->first();
+        $provinceModel = Province::whereRaw('LOWER(name) = ?', [strtolower($province)])->first();
         if (!$provinceModel) {
             return redirect()->back()->with('error', 'Province not found.');
         }
+
+        $provinceName = $provinceModel->name; // Ambil nama asli dengan case dari database
+        $title = 'Belanja Provinsi ' . $provinceName;
 
         $provinceId = $provinceModel->id;
         $datas = FinancialData::where('province_id', $provinceId)->where('categories_id', 2)->get();
@@ -277,7 +269,7 @@ class FinancialDataController extends Controller
 
         return view('belanja', [
             'title' => $title,
-            'province' => $province,
+            'province' => $provinceName,
             'datas' => $datas,
             'subTitle' => $subTitle,
             'averagePercentageChange' => $averagePercentageChange,
