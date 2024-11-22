@@ -10,7 +10,7 @@ const renderChart = (id, percentage) => {
             width: "100%",
             type: "pie",
         },
-        labels: ["Realisasi", "Sisa"],
+        labels: ["Realisasi (%)", "Sisa (%)"],
         dataLabels: {
             enabled: true,
             style: {
