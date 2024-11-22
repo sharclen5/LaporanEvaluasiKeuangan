@@ -64,35 +64,38 @@
             <div class="content relative overflow-x-auto sm:rounded-lg mb-8">
                 <h2>Gambaran Realisasi {{ $title }} dalam 5 (lima) tahun terakhir (TA {{ $earliest->year }} s.d.
                     TA {{ $current->year }}), sebagaimana tabel berikut:</h2>
-                <table class="mt-5 w-full shadow-md text-sm text-center rtl:text-right"
-                    style="font-family: 'Bookman Old Style'; font-size: 12pt;">
-                    <thead class="text-xs bg-gray-300" style="font-family: 'Bookman Old Style'; font-size: 12pt;">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 border-r">
-                                Tahun
-                            </th>
-                            <th scope="col" class="px-6 py-3 border-r">
-                                Anggaran <br> (Rp)
-                            </th>
-                            <th scope="col" class="px-6 py-3 border-r">
-                                Realisasi <br> (Rp)
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                %
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody style="font-family: 'Bookman Old Style'; font-size: 12pt;">
-                        @foreach ($sortedDatas as $data)
-                            <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="px-6 py-4 border-r">{{ $data->year }}</td>
-                                <td class="px-6 py-4 border-r">{{ number_format($data->budget, 2, ',', '.') }}</td>
-                                <td class="px-6 py-4 border-r">{{ number_format($data->realization, 2, ',', '.') }}</td>
-                                <td class="px-6 py-4">{{ number_format($data->percentage, 2, ',', '.') }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                    <div class="overflow-x-auto">
+                        <table class="mt-5 min-w-full shadow-md text-sm text-center rtl:text-right"
+                            style="font-family: 'Bookman Old Style'; font-size: 12pt;">
+                            <thead class="text-xs bg-gray-300" style="font-family: 'Bookman Old Style'; font-size: 12pt;">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 border-r">
+                                        Tahun
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 border-r">
+                                        Anggaran <br> (Rp)
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 border-r">
+                                        Realisasi <br> (Rp)
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        %
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-family: 'Bookman Old Style'; font-size: 12pt;">
+                                @foreach ($sortedDatas as $data)
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <td class="px-6 py-4 border-r">{{ $data->year }}</td>
+                                        <td class="px-6 py-4 border-r">{{ number_format($data->budget, 2, ',', '.') }}</td>
+                                        <td class="px-6 py-4 border-r">{{ number_format($data->realization, 2, ',', '.') }}</td>
+                                        <td class="px-6 py-4">{{ number_format($data->percentage, 2, ',', '.') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    
 
                 <p class="text-justify mt-8" style="font-family: 'Bookman Old Style'; font-size: 12pt;">
 
@@ -162,6 +165,8 @@
 
         @endif
     </div>
+
+    
 
 
     <!-- Update modal -->
