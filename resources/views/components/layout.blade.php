@@ -39,42 +39,42 @@
     </div>
 
     <script>
-        document.getElementById('year').addEventListener('change', function () {
-    const year = this.value;
-    const categoryId = document.querySelector('input[name="categories_id"]').value;
+        document.getElementById('year').addEventListener('change', function() {
+            const year = this.value;
+            const categoryId = document.querySelector('input[name="categories_id"]').value;
 
-    if (year && categoryId) {
-        fetch(`/get-data-by-year?year=${year}&categories_id=${categoryId}`)
-            .then(response => {
-                if (!response.ok) {
-                    alert('An error occurred while fetching data.');
-                    throw new Error(`HTTP status ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && data.length > 0) {
-                    // Validasi jika `deleted_at` tidak null (optional di sisi JS)
-                    const validData = data.filter(item => !item.deleted_at);
+            if (year && categoryId) {
+                fetch(`/get-data-by-year?year=${year}&categories_id=${categoryId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            alert('An error occurred while fetching data.');
+                            throw new Error(`HTTP status ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data && data.length > 0) {
+                            // Validasi jika `deleted_at` tidak null (optional di sisi JS)
+                            const validData = data.filter(item => !item.deleted_at);
 
-                    if (validData.length > 0) {
-                        document.getElementById('budget').value = validData[0]?.budget || '';
-                        document.getElementById('realization').value = validData[0]?.realization || '';
-                    } else {
-                        document.getElementById('budget').value = '';
-                        document.getElementById('realization').value = '';
-                    }
-                } else {
-                    // Reset nilai jika tidak ada data valid
-                    document.getElementById('budget').value = '';
-                    document.getElementById('realization').value = '';
-                }
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    } else {
-        alert('Please select a year and ensure category ID is available.');
-    }
-});
+                            if (validData.length > 0) {
+                                document.getElementById('budget').value = validData[0]?.budget || '';
+                                document.getElementById('realization').value = validData[0]?.realization || '';
+                            } else {
+                                document.getElementById('budget').value = '';
+                                document.getElementById('realization').value = '';
+                            }
+                        } else {
+                            // Reset nilai jika tidak ada data valid
+                            document.getElementById('budget').value = '';
+                            document.getElementById('realization').value = '';
+                        }
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            } else {
+                alert('Please select a year and ensure category ID is available.');
+            }
+        });
 
 
 
@@ -111,14 +111,25 @@
 
 
 
+        // Fungsi untuk mendapatkan nama file dinamis dari judul halaman
+        function getFileName() {
+            // Ambil judul halaman dari elemen <title> atau elemen dengan kelas 'page-title'
+            const title = document.title || document.querySelector('.page-title')?.innerText || 'Laporan';
+            // Ganti spasi dengan underscore (_) untuk format nama file
+            return title.replace(/\s+/g, '_').trim();
+        }
+
+        // Download PDF
         document.getElementById('downloadPdf').addEventListener('click', function() {
-            const element = document.querySelector(
-                '.content');
+            const element = document.querySelector('.content'); // Elemen yang akan dikonversi
+
+            // Nama file dinamis
+            const dynamicFileName = getFileName() + '.pdf';
 
             // Set PDF options
             const options = {
                 margin: 0.5,
-                filename: 'Laporan_Keuangan_Daerah.pdf',
+                filename: dynamicFileName,
                 image: {
                     type: 'jpeg',
                     quality: 0.98
@@ -136,31 +147,35 @@
             html2pdf().set(options).from(element).save();
         });
 
+        // Download Word
         document.getElementById('downloadWord').addEventListener('click', function() {
-            // Select the element you want to convert to Word
-            const element = document.querySelector(
-                '.content'); // Adjust '.content' to match your container's class or ID
+            const element = document.querySelector('.content'); // Elemen yang akan dikonversi
 
-            // Extract HTML content
+            // Nama file dinamis
+            const dynamicFileName = getFileName() + '.doc';
+
+            // Ekstrak konten HTML
             const content = element.innerHTML;
 
-            // Create a Word document with appropriate headers
+            // Header dan footer untuk format Word
             const header = `
-            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head><meta charset='utf-8'><title>Document</title></head><body>`;
+    <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+          xmlns:w='urn:schemas-microsoft-com:office:word' 
+          xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset='utf-8'><title>${dynamicFileName}</title></head><body>`;
             const footer = "</body></html>";
             const html = header + content + footer;
 
-            // Create a Blob with the HTML content
+            // Buat file Blob untuk Word
             const blob = new Blob(['\ufeff', html], {
                 type: 'application/msword'
             });
 
-            // Create a download link and click it to download
+            // Buat link download
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = 'Laporan_Keuangan_Daerah.doc';
+            link.download = dynamicFileName; // Nama file dinamis
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

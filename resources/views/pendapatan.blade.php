@@ -64,38 +64,39 @@
             <div class="content relative overflow-x-auto sm:rounded-lg mb-8">
                 <h2>Gambaran Realisasi {{ $title }} dalam 5 (lima) tahun terakhir (TA {{ $earliest->year }} s.d.
                     TA {{ $current->year }}), sebagaimana tabel berikut:</h2>
-                    <div class="overflow-x-auto">
-                        <table class="mt-5 min-w-full shadow-md text-sm text-center rtl:text-right"
-                            style="font-family: 'Bookman Old Style'; font-size: 12pt;">
-                            <thead class="text-xs bg-gray-300" style="font-family: 'Bookman Old Style'; font-size: 12pt;">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 border-r">
-                                        Tahun
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 border-r">
-                                        Anggaran <br> (Rp)
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 border-r">
-                                        Realisasi <br> (Rp)
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        %
-                                    </th>
+                <div class="overflow-x-auto">
+                    <table class="mt-5 min-w-full shadow-md text-sm text-center rtl:text-right"
+                        style="font-family: 'Bookman Old Style'; font-size: 12pt;">
+                        <thead class="text-xs bg-gray-300" style="font-family: 'Bookman Old Style'; font-size: 12pt;">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 border-r">
+                                    Tahun
+                                </th>
+                                <th scope="col" class="px-6 py-3 border-r">
+                                    Anggaran <br> (Rp)
+                                </th>
+                                <th scope="col" class="px-6 py-3 border-r">
+                                    Realisasi <br> (Rp)
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    %
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody style="font-family: 'Bookman Old Style'; font-size: 12pt;">
+                            @foreach ($sortedDatas as $data)
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <td class="px-6 py-4 border-r">{{ $data->year }}</td>
+                                    <td class="px-6 py-4 border-r">{{ number_format($data->budget, 2, ',', '.') }}</td>
+                                    <td class="px-6 py-4 border-r">{{ number_format($data->realization, 2, ',', '.') }}
+                                    </td>
+                                    <td class="px-6 py-4">{{ number_format($data->percentage, 2, ',', '.') }}</td>
                                 </tr>
-                            </thead>
-                            <tbody style="font-family: 'Bookman Old Style'; font-size: 12pt;">
-                                @foreach ($sortedDatas as $data)
-                                    <tr class="bg-white border-b hover:bg-gray-50">
-                                        <td class="px-6 py-4 border-r">{{ $data->year }}</td>
-                                        <td class="px-6 py-4 border-r">{{ number_format($data->budget, 2, ',', '.') }}</td>
-                                        <td class="px-6 py-4 border-r">{{ number_format($data->realization, 2, ',', '.') }}</td>
-                                        <td class="px-6 py-4">{{ number_format($data->percentage, 2, ',', '.') }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
 
                 <p class="text-justify mt-8" style="font-family: 'Bookman Old Style'; font-size: 12pt;">
 
@@ -144,32 +145,32 @@
                 <button id="downloadPdf"
                     class="text-white flex items-center justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 w-full sm:w-auto">
                     Download as PDF
-                    <svg class="ml-1 w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="ml-1 w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2 2 2 0 0 0 2 2h12a2 2 0 0 0 2-2 2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2V4a2 2 0 0 0-2-2h-7Zm-6 9a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h.5a2.5 2.5 0 0 0 0-5H5Zm1.5 3H6v-1h.5a.5.5 0 0 1 0 1Zm4.5-3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.376A2.626 2.626 0 0 0 15 15.375v-1.75A2.626 2.626 0 0 0 12.375 11H11Zm1 5v-3h.375a.626.626 0 0 1 .625.626v1.748a.625.625 0 0 1-.626.626H12Zm5-5a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-1h1a1 1 0 1 0 0-2h-1v-1h1a1 1 0 1 0 0-2h-2Z"
                             clip-rule="evenodd" />
                     </svg>
                 </button>
-            
+
                 <!-- Tombol Download Word -->
                 <button id="downloadWord"
                     class="text-white flex items-center justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 w-full sm:w-auto">
                     Download as Word
-                    <svg class="ml-1 w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="ml-1 w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M9 7V2.221a2 2 0 0 0-.5.365L4.586 6.5a2 2 0 0 0-.365.5H9Zm2 0V2h7a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9h5a2 2 0 0 0 2-2Zm-1.02 4.804a1 1 0 1 0-1.96.392l1 5a1 1 0 0 0 1.838.319L12 15.61l1.143 1.905a1 1 0 0 0 1.838-.319l1-5a1 1 0 0 0-1.962-.392l-.492 2.463-.67-1.115a1 1 0 0 0-1.714 0l-.67 1.116-.492-2.464Z"
                             clip-rule="evenodd" />
                     </svg>
                 </button>
             </div>
-            
+
 
         @endif
     </div>
 
-    
+
 
 
     <!-- Update modal -->
