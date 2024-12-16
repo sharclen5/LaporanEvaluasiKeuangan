@@ -34,8 +34,6 @@ class UserController extends Controller
             'search' => $search,
         ]);
     }
-    
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -55,9 +53,6 @@ class UserController extends Controller
     
         return redirect()->route('users.index')->with('success', 'User added successfully.');
     }
-    
-
-
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -75,8 +70,6 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
-
-
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -84,7 +77,6 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
-
     public function updatePhoto(Request $request)
 {
     // Validasi file yang diunggah

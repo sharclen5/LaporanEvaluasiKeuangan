@@ -11,7 +11,7 @@ class FinancialDataController extends Controller
 
     public function showDashboard($province, Request $request)
     {
-    
+
         // Mendapatkan data provinsi
         $provinceModel = Province::whereRaw('LOWER(name) = ?', [strtolower($province)])->first();
         if (!$provinceModel) {
@@ -20,16 +20,24 @@ class FinancialDataController extends Controller
 
         $provinceName = $provinceModel->name; // Ambil nama asli dengan case dari database
         $title = 'Dashboard ' . $provinceName;
-    
+
         $provinceId = $provinceModel->id;
-    
+
+        // Mendapatkan daftar tahun yang tersedia
+        $years = FinancialData::where('province_id', $provinceId)
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+
+        $defaultYear = $years->first();
+
         // Mendapatkan tahun yang terpilih untuk setiap kategori
         $selectedYears = [
-            'pendapatan' => $request->get('year_pendapatan', date('Y')),
-            'belanja' => $request->get('year_belanja', date('Y')),
-            'pembiayaan' => $request->get('year_pembiayaan', date('Y')),
+            'pendapatan' => $request->get('year_pendapatan', $defaultYear),
+            'belanja' => $request->get('year_belanja', $defaultYear),
+            'pembiayaan' => $request->get('year_pembiayaan', $defaultYear),
         ];
-    
+
         // Mendapatkan data persentase berdasarkan kategori
         $percentages = [
             'pendapatan' => FinancialData::where('province_id', $provinceId)
@@ -45,13 +53,7 @@ class FinancialDataController extends Controller
                 ->where('year', $selectedYears['pembiayaan'])
                 ->value('percentage'),
         ];
-    
-        // Mendapatkan daftar tahun yang tersedia
-        $years = FinancialData::where('province_id', $provinceId)
-            ->distinct()
-            ->orderBy('year', 'desc')
-            ->pluck('year');
-    
+
         return view('dashboard', [
             'title' => $title,
             'province' => $province,
@@ -60,8 +62,8 @@ class FinancialDataController extends Controller
             'percentages' => $percentages,
         ]);
     }
-    
-    
+
+
     private function calculateAverageRealization($provinceId, $categoryId)
     {
         // Ambil data realisasi 5 tahun terakhir berdasarkan province dan kategori
@@ -221,7 +223,7 @@ class FinancialDataController extends Controller
 
     public function showPendapatan($province)
     {
-    
+
         $subTitle = 'Pendapatan';
 
         $provinceModel = Province::whereRaw('LOWER(name) = ?', [strtolower($province)])->first();
@@ -250,7 +252,7 @@ class FinancialDataController extends Controller
 
     public function showBelanja($province)
     {
-    
+
         $subTitle = 'Belanja';
 
         $provinceModel = Province::whereRaw('LOWER(name) = ?', [strtolower($province)])->first();
@@ -279,7 +281,7 @@ class FinancialDataController extends Controller
 
     public function showPembiayaan($province)
     {
-    
+
         $subTitle = 'Pembiayaan';
         $category = 'pembiayaan';
 
@@ -310,7 +312,7 @@ class FinancialDataController extends Controller
 
     public function showPendapatanAsliDaerah($province)
     {
-    
+
         $subTitle = 'Pendapatan Asli Daerah';
         $category = 'Pendapatan Asli Daerah';
 
@@ -341,7 +343,7 @@ class FinancialDataController extends Controller
 
     public function showPendapatanPajakDaerah($province)
     {
-    
+
         $subTitle = 'Pendapatan Pajak Daerah';
         $category = 'Pendapatan Pajak Daerah';
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FinancialDataController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ForceLowercaseUrl;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', [HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -31,12 +32,12 @@ Route::put('/user/update-photo', [UserController::class, 'updatePhoto'])
     ->name('user.updatePhoto')
     ->middleware('auth');
 
-Route::middleware('auth')->prefix('user-management')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('users.index');
-    Route::post('/store', [UserController::class, 'store'])->name('users.store');
-    Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-});
+    Route::middleware(['auth', AdminMiddleware::class])->prefix('user-management')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::post('/store', [UserController::class, 'store'])->name('users.store');
+        Route::post('/update/{id}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
 
 Route::middleware([ForceLowercaseUrl::class])->group(function () {
     Route::get('/{province}/pendapatan', [FinancialDataController::class, 'showPendapatan']);});

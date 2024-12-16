@@ -1,47 +1,46 @@
 import "./bootstrap";
 import "flowbite";
 
-const renderChart = (id, percentage) => {
-    const options = {
-        series: [percentage, 100 - percentage],
-        colors: ["#1C64F2", "#16BDCA"],
-        chart: {
-            height: 420,
-            width: "100%",
-            type: "pie",
-        },
-        labels: ["Realisasi (%)", "Sisa (%)"],
-        dataLabels: {
-            enabled: true,
-            style: {
+document.addEventListener("DOMContentLoaded", () => {
+    // Fungsi untuk merender chart jika data tersedia
+    const renderChart = (id, percentage) => {
+        const options = {
+            series: [percentage, 100 - percentage],
+            colors: ["#1C64F2", "#16BDCA"],
+            chart: {
+                height: 420,
+                width: "100%",
+                type: "pie",
+            },
+            labels: ["Realisasi (%)", "Sisa (%)"],
+            dataLabels: {
+                enabled: true,
+                style: { fontFamily: "Inter, sans-serif" },
+            },
+            legend: {
+                position: "bottom",
                 fontFamily: "Inter, sans-serif",
             },
-        },
-        legend: {
-            position: "bottom",
-            fontFamily: "Inter, sans-serif",
-        },
+        };
+
+        const chartElement = document.getElementById(id);
+        if (chartElement && typeof ApexCharts !== "undefined") {
+            while (chartElement.firstChild) {
+                chartElement.removeChild(chartElement.firstChild);
+            }
+            const chart = new ApexCharts(chartElement, options);
+            chart.render();
+        }
     };
 
-    const chartElement = document.getElementById(id);
-    if (chartElement && typeof ApexCharts !== "undefined") {
-        // Hapus chart lama sebelum render ulang
-        while (chartElement.firstChild) {
-            chartElement.removeChild(chartElement.firstChild);
+    // Cari elemen chart dan render jika datanya ada
+    document.querySelectorAll('[id$="-chart"]').forEach((chart) => {
+        const percentage = parseFloat(chart.getAttribute("data-percentage"));
+        if (!isNaN(percentage)) {
+            renderChart(chart.id, percentage);
         }
-        const chart = new ApexCharts(chartElement, options);
-        chart.render();
-    }
-};
-
-document.querySelectorAll('[id$="-chart"]').forEach((chart) => {
-    const percentage = parseFloat(chart.getAttribute("data-percentage"));
-    if (!isNaN(percentage)) {
-        renderChart(chart.id, percentage);
-    }
+    });
 });
-
-
 
 document
     .getElementById("photo-upload")
@@ -64,7 +63,3 @@ document
             reader.readAsDataURL(file);
         }
     });
-
-
-
-

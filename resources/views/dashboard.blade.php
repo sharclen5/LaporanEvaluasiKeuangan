@@ -24,9 +24,9 @@
                                 class="p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-300 w-full sm:w-auto" 
                                 onchange="updateURL(this)">
                                 @foreach ($years as $year)
-                                    <option value="{{ $year }}" {{ $year == $selectedYears[$key] ? 'selected' : '' }}>
-                                        {{ $year }}
-                                    </option>
+                                <option value="{{ $year }}" {{ $year == $selectedYears[$key] ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
